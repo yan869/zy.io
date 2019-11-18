@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detail</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/detail.css">
+</head>
+
+<body>
+    <div class="head">
+
+    </div>
+    <!-- 中间商品详情部分 -->
+    <div id="main">
+
+
+    </div>
+    <div class="mainBottom">
+        <div class="fleft">
+            <div class="consult">
+                <div class="logo">
+                    <img src="https://www.mfsj1908.com/images/service.png" alt="" srcset="">
+                </div>
+            </div>
+            <div class="leftcontent">
+                <div class="work">
+                    <h4>工作时间</h4>
+                </div>
+                <div class="time">
+                    <p>周一至五：9:30~21:30
+                        周末及节假日：不定时上线</p>
+                </div>
+            </div>
+            <div class="rank">
+                <h3 class="left-title">店内排行榜</h3>
+                <div class="ranklist">
+                    <div class="saleNum">
+                        <span class="activeass sale"> 销售量</span>
+                        <span id="collect">收藏数</span>
+                    </div>
+
+                </div>
+                <div class="content">
+                    <div class="goods">
+                        <!-- <ul class="sale " style="display: block;">
+                            <li>
+                                <div class="pic">
+                                    <a href="#">
+                                        <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/gallery/2018/10/08/15389937221775.jpg?x-oss-process=image/resize,m_pad,limit_0,h_80,w_80"
+                                            alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="price">
+                                    <a href="/detail.html" title="膜法世家吸黑焕采三合一面膜贴21片">膜法世家吸黑焕采三合一面膜贴21...</a>
+                                    <span class="color">￥119.90</span>
+
+                                </div>
+                            </li>
+                        </ul> -->
+                        <ul class="hot" style="display:none">
+                            <li>3425</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <div class="fright">
+            <!-- <div class="detailList">
+                <span >规格参数</span>
+                <span class="active">商品详情</span>
+                <span>累计评价</span>
+            </div>
+            <div class="msg">
+                <span>商品名称： 膜法世家水光面膜贴20片</span>
+                <span>商品编号： 10</span>
+                <span>店铺： 膜法世家官网</span>
+            </div>
+            <div class="detailImg">
+                <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/gallery/2019/08/15/15658525127293.jpg" alt="" srcset="">
+            </div> -->
+        </div>
+    </div>
+
+
+    <div class="footer">
+
+    </div>
+</body>
+<script src="../js/jquery-1.11.3.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(".head").load('../layout/head.html')
+    $(".footer").load('../layout/footer.html')
+    $.getScript("../js/head.js", function () {
+        search();
+    });
+    // 定义全局变量接收后生的数量
+    var tansNum = "";
+    // 循环生成内容
+
+    var search = location.search.slice(1);
+    $(function () {
+        if (search) {
+            var goodsId = search.split("=")[1];
+            // console.log(goodsId)
+
+            $.ajax({
+                type: "get",
+                url: "../../php/detail.php",
+                data: {
+                    id: goodsId
+                },
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                    var data = result.data;
+                    // console.log(data);
+                    var {
+                        id,
+                        goods_id,
+                        goods_name,
+                        goods_label, goods_originPrice, goods_currentPrice, goods_num,
+                        goods_sale,
+                        goods_comment,
+                        small_img1,
+                        small_img2,
+                        small_img3,
+                        small_img4,
+                    } = data;
+                    // console.log(data)
+                    var arr = [];
+                    arr.push(data.small_img1, data.small_img2, data.small_img3, data.small_img4);
+                    // console.log(arr);
+
+
+                    var html = `
+                <div class="goods-info">
+            <div class="left">
+                <div class="mainPic">
+                    <div class="bigPic">
+                        <div class="help">
+                            <img src="${data.small_img1}"
+                                alt="" srcset="">
+                            <div class="mask">
+                                <!-- 遮罩 -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 原图串口 -->
+                    <!-- “原图”窗口 -->
+                    <div class="origin">
+                        <div class="contain">
+                            <img src="${data.small_img1}"
+                                style="position: absolute;width: 1000px;height: 1000px;">
+                        </div>
+
+                    </div>
+                    <div class="oUl">
+                        <ul>
+                            <li>
+                                <img src="${data.small_img1}"
+                                    alt="" srcset="">
+                            </li>
+                            <li>
+                                <img src="${data.small_img2}"
+                                    alt="" srcset="">
+                            </li>
+                            <li>
+                                <img src="${data.small_img3}"
+                                    alt="" srcset="">
+                            </li>
+                            <li>
+                                <img src="
+                                ${data.small_img4}"
+                                    alt="" srcset="">
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mid">
+                <div class="container">
+                    <h1 class="goods-name">
+                        <span class="name">${data.goods_name}</span>
+                    </h1>
+                    <p class="label">${data.goods_label}</p>
+                    <div class="middle">
+                        <div class="show-price">
+
+                            <span class="price">市场价</span>
+                            <em class="market-price SZY-MARKET-PRICE">￥${data.goods_originPrice}</em>
+                        </div>
+                        <div class="goods-info-other">
+                            <div class="item sale">
+                                <p>累计销量</p>
+                                <em class="second-color">${data.goods_sale}</em>
+                            </div>
+                            <div class="item evaluate">
+                                <p>用户评价</p>
+                                <em class="second-color">${data.goods_comment}</em>
+                            </div>
+                        </div>
+                        <div class="realy-price">
+                            <div class="now-prices">
+                                <span class="price">售价</span>
+                                <strong class="p-price second-color SZY-GOODS-PRICE">￥${data.goods_currentPrice}</strong>
+                            </div>
+
+                        </div>
+                        <div class="cuxiao">
+
+                            <div class="cx">促销</div>
+                            <div class="active">
+                                <p class="one" style="color:#fc424d;">
+                                    点击此处领取并查看红包详情
+                                </p>
+                                <p class="two">
+                                    满9.9元，送水润修护护肤面膜10片赠品
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="freight">
+                        <div class="dt">服务</div>
+                        <div class="dd">
+                            <div>
+                                由
+                                <a href="/shop/1.html" target="_blank" class="color">膜法世家官网</a>
+                                负责发货，并提供售后服务。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="choose">
+                        <div class="amount">
+                            <div class="mount">
+                                数 &nbsp;&nbsp;量:
+                            </div>
+                            <div class="num" style="color:#000">
+                                <span class="jian" style="font-size:40px;width:30px;height:30px;
+                                text-align:center;line-height:25px">-</span>
+                                <span class="addNum" style="width:100px;height:30px;border:1px solid #000;text-align:center;line-height:30px;font-size:20px;margin:0 10px">1</span>
+                                <span class="jia"  style="font-size:40px;width:30px;height:30px;
+                                text-align:center;line-height:30px">+</span>
+                            </div>
+                           
+                            <div class="store">
+                                库存${data.goods_num}
+                            </div>
+                        </div>
+                        <div class="getBtn">
+                            <div class="buyNow">
+                                立即购买 
+                            </div>
+                            <div class="addCar">
+                                加入购物车
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="right">
+                <div class="store-logo">
+                    <a href="index.html" target="_blank">
+                        <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/images/2018/05/30/15276673465070.png"
+                            width="" height="">
+                    </a>
+                </div>
+                <div class="store-name ">
+                   
+                    <a href="index.html" target="_blank" class="name" title="膜法世家官网">膜法世家官网</a>
+                    <span>自营</span>
+                </div>
+                <div class="store-score">
+                    
+                        <!-- 通过分数判断width的宽度-->
+                        <div class="score-sum color">
+                            5.00
+                            <span>综合</span>
+                        </div>
+                        <div class="score-part">
+                            <ul class="score-part">
+                            <li>
+                                <span class="score-desc">描述相符</span>
+                                <span class="score-detail color">5.00</span>
+                            </li>
+                            <li>
+                                <span class="score-desc">服务态度</span>
+                                <span class="score-detail color">5.00</span>
+                            </li>
+                            <li>
+                                <span class="score-desc">发货速度</span>
+                                <span class="score-detail color">5.00</span>
+                            </li>
+                        </ul>
+                        </div>
+                        
+                   
+                </div>
+                <div class="other">
+                    <span style=" color: #999;">
+                        信誉:&nbsp;&nbsp;
+                    </span>
+                    <span>
+                        <img src="https://images.68mall.com/system/credit/2016/06/07/14653017726669.gif" class="rank" title="三钻">
+                    </span>
+                </div>
+                <div class="other">
+                    <span style=" color: #999;">
+                        所在地:&nbsp;&nbsp;
+                    </span>
+                    <span style="color: gray;">
+                        广东省 广州市 白云区
+                    </span>
+                </div>
+                <div class="other">
+                    <span style=" color: #999;">
+                        客服:&nbsp;&nbsp;
+                    </span>
+                    <span style="color: gray;">
+                        <img src="https://wpa.qq.com/pa?p=2:2770625634:52" alt="QQ" title="点击这里给我发消息" style="height: 20px;">
+                    </span>
+                    <span style="color: #999;">QQ交谈</span>
+                </div>
+
+                <div class="btm">
+                    <button class="enter">
+                        <span>
+                            <img src="../img/store.png" alt="" srcset=" " style="width: 20px;height:20px;line-height: 30px;">
+                        </span>
+                               <a href="index.html" style="text-decoration: none; color: #fff;"> 进入本店</a>
+                            </button>
+                    <button class="focus">
+                        <span>
+                            <img src="../img/focus.png" alt="" srcset="" style="width: 20px;height:20px; line-height: 30px;">
+                        </span>
+                        关注本店
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+                `
+
+                    var html1 = `
+                <div class="detailList">
+                <span >规格参数</span>
+                <span class="active">商品详情</span>
+                <span>累计评价</span>
+            </div>
+            <div class="msg">
+                <span>商品名称： ${data.goods_name}</span>
+                <span>商品编号： ${data.goods_code}</span>
+                <span>店铺： 膜法世家官网</span>
+            </div>
+            <div class="detailImg">
+                <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/gallery/2019/08/15/15658525127293.jpg" alt="" srcset="">
+               
+            </div>
+                `
+                    $(".fright").html(html1)
+                    $("#main").html(html);
+                    const theNum = $('.addNum').html() * 1;
+                    tansNum = theNum;
+                    console.log($('.addCar').html());
+
+
+
+
+
+                    // 首先定义一个全局变量，在这里取加减的数量的值，再将这个值
+                    // 付给这个全局变量，然后在对其进行操作
+
+                    var html2 = "";
+                    for (let i = 0; i < arr.length; i++) {
+                        html2 += `<img src=${arr[i]} />`;
+
+                        // console.log(arr[i]);
+
+                    }
+                    $(".detailImg").append(html2);
+                    // console.log($(".detailImg"));
+                }
+
+            })
+        }
+
+    })
+
+
+
+    $("#main").on(function () {
+        $(".origin").css({
+            display: 'none',
+            background: "white"
+        });
+    })
+
+
+    $("#main").on("mouseover", ".help", function () {
+        $(".mask,.origin").css('display', 'block');
+    })
+
+
+    $("#main").on("mouseout", ".help", function () {
+        $(".mask,.origin").css('display', 'none');
+    })
+
+    // // 放大镜部分
+
+    $("#main").on("mousemove", ".help", function (e) {
+        {
+            var pageX = e.pageX;
+            var pageY = e.pageY;
+            // 大图在文档中的位置
+            var offsetX = $(".help").offset().left;
+            var offsetY = $(".help").offset().top;
+
+            // 鼠标在大图里面的位置
+            var relativeX = pageX - offsetX;
+            var relativeY = pageY - offsetY;
+
+            // mask中心位置
+            var maskX = $(".mask").width() / 2;
+            var maskY = $(".mask").height() / 2;
+            $(".mask").css({
+                left: relativeX - maskX + "px",
+                top: relativeY - maskY + 'px'
+
+            })
+            // 获取mask的新位置
+            var magX = $('.mask').position().left;
+            var magY = $('.mask').position().top;
+
+
+            // 边界
+            var maxWidth = $(".help").width() - $(".mask").width();
+            var maxHeight = $(".help").height() - $(".mask").height();
+            if (magX <= 0) {
+                $('.mask').css("left", "0px")
+            } maxHeight
+            if (magX >= maxWidth) {
+                $('.mask').css("left", maxWidth + "px")
+            }
+            if (magY <= 0) {
+                $('.mask').css("top", "0px")
+            }
+            if (magY >= maxHeight) {
+                $('.mask').css("top", maxHeight + "px")
+            }
+
+            // 放大图的变动 图片的移动方向与鼠标的移动方向是相反的！
+            var originX = magX * 2.5;
+            var originY = magY * 2.5;
+            $('.origin img').css({
+                background: "white",
+                left: -originX -maskX + 'px', top: -originY -maskY
+                    + 'px'
+            });
+            // console.log($('.origin img').position())
+
+
+        }
+    })
+
+    $("#main").on("mouseover", ".oUl li img", function () {
+        $(".help img").attr("src", $(this).attr("src"));
+        $(".origin img").attr("src", $(".help img").attr("src"))
+    })
+
+
+    //   排序
+
+    $(".saleNum").on("click", ".sale", function () {
+        showrank();
+        $(this).addClass("activeass").next().removeClass("activeass");
+
+    })
+
+    $(".saleNum").on("click", "#collect", function () {
+        showclloctrank();
+        $(this).addClass("activeass").prev().removeClass("activeass");
+    })
+
+    function showrank() {
+        $(".goods .sale").css("display", "block").siblings("display", "none");
+        var key = "";
+        var orderCol = "goods_sale";
+        var orderType = "desc";
+        $.ajax({
+            type: "get",
+            url: "../../php/detailRank.php",
+            data: {
+                key,
+                orderCol,
+                orderType,
+            },
+            async: true,
+            dataType: "json",
+            success: function (result) {
+                // console.log(result);
+                var html = "";
+                result.slice(0, 10).forEach(element => {
+                    const { goods_id, goods_name, small_img1, goods_currentPrice, goods_sale } = element;
+                    // console.log("asdfag")
+                    html += `
+                <ul class="sale " style="display: block;">
+                            <li>
+                                <div class="pic">
+                                    <a href="#">
+                                        <img src="${small_img1}"
+                                            alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="price">
+                                    <a href="/detail.html" title="${goods_name}">${goods_name}</a>
+                                    <span class="color">￥${goods_currentPrice}</span>
+
+                                </div>
+                            </li>
+                        </ul>
+            
+                `
+                });
+                $(".goods").html(html)
+            }
+        })
+    }
+    function showclloctrank() {
+        $("#collect").css("display", "block").siblings("display", "none");
+
+        var key = "";
+        var orderCol = "goods_comment";
+        var orderType = "desc";
+        $.ajax({
+            type: "get",
+            url: "../../php/detailRank.php",
+            data: {
+                key,
+                orderCol,
+                orderType,
+            },
+            async: true,
+            dataType: "json",
+            success: function (result) {
+                // console.log(result);
+                var html = "";
+                result.slice(0, 10).forEach(element => {
+                    const { goods_id, goods_name, goods_comment, small_img1, goods_currentPrice, goods_sale } = element;
+                    // console.log("asdfag")
+                    html += `
+                <ul class="sale " style="display: block;">
+                            <li>
+                                <div class="pic">
+                                    <a href="#">
+                                        <img src="${small_img1}"
+                                            alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="price">
+                                    <a href="/detail.html" title="${goods_name}">${goods_name}</a>
+                                    <span class="color">￥${goods_currentPrice}</span>
+
+                                </div>
+                            </li>
+                        </ul>
+            
+                `
+                });
+                $(".goods").html(html)
+            }
+        })
+    }
+
+
+    showrank();
+    showclloctrank();
+
+    function newRank() {
+
+    }
+
+
+
+    // 点击加入购物车
+    $(function () {
+        $(document).on("", ".addNum", function () {
+            console.log($(this).html());
+
+        })
+    })
+
+
+
+    $(document).on("click", ".jian", function () {
+        if (tansNum <= 1) {
+            tansNum = 1;
+            return false
+        }
+        tansNum--
+        $('.addNum').html(tansNum)
+        if (tansNum < 1) {
+            tansNum = 1;
+        }
+        return tansNum
+    })
+    $(document).on("click", ".jia", function () {
+        tansNum++
+        $('.addNum').html(tansNum)
+
+    })
+
+
+    // 
+    $(document).on("click", ".buyNow", function () {
+
+        //    判断是否登录，如果已经登录就直接跳转，否则跳到登录页面，记住当前页面，填完登陆后在跳转回拉
+        var isLogin = localStorage.getItem('user');
+        var task = window.location.href
+        localStorage.setItem('addCar', task)
+        if (isLogin) {
+            var isDetail = localStorage.getItem('addCar')
+            // location.href = decodeURIComponent(isDetail);
+            // console.log(isDetail);
+
+            $('.loging').html(getLogin);
+            $('.register').html('退出登录')
+
+            // 请求购物车的接口
+            
+                console.log('xdg')
+var goods_id=task.split("?")[1].split("=")[1];
+console.log(tansNum);
+
+
+                $.ajax({
+                    type:"get",
+                    url:"../../php/addToCar.php",
+                    data:{
+                        user_id:isLogin,
+                        goods_id,
+                        goods_num:tansNum,
+                    },
+                    dataType: "json",
+                    success:function(res){
+                        if (res.status){
+                            // 可以加入一个模态框
+                            location.href='./cart.html';
+                            // 请求导数据就可以加购l
+
+                        }else{
+                            alert('添加购物车失败')
+                        }
+                    }
+                })
+
+            // 
+
+
+
+
+
+
+
+        } else {
+            location.href = './login.html'
+            // alert("dfgdshh")
+        }
+
+    })
+
+
+
+
+
+</script>
+
+</html>

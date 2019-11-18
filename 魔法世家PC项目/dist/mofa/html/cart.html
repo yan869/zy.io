@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+    <section>
+        <div class="content" style=" margin-left: 70px!important;">
+            <div class="container">
+                <div class="header_bar">
+                    <div class="cartNum">
+                        <span>我的购物车</span>
+                        <span class="myCar">0</span>
+                    </div>
+                </div>
+
+                <!-- 主要部分开始 -->
+                <div class="main-goods">
+                    <div class="cart_table">
+                        <div class="th all" style="width: 45px;">
+                            <input type="checkbox" name="all" id="check_all"><span style="margin-left: 10px;">全选</span>
+                        </div>
+                        <div class="th msg" style="width: 292px;">
+                            <span>
+                                商品信息
+                            </span>
+                        </div>
+                        <div class="th space" style="width:200px;">
+                            <span>
+
+                                &nbsp;
+                            </span>
+                        </div>
+                        <div class="th sigprice" style="width: 145px;">
+                            单价（元）
+                        </div>
+                        <div class="th count" style="width: 110px;">
+                            数量
+                        </div>
+                        <div class="th money" style="width: 115px;">
+                            金额（元）
+                        </div>
+                        <div class="th do" style="width: 80px;">
+                            操作
+                        </div>
+                    </div>
+
+                    <div class="cart_list">
+                        <!-- <div class="item">
+                            <ul class="oUl">
+                                <li>
+                                    <input type="checkbox" name="one" class="one check-one" style="width: 45px;">
+                                </li>
+                                <li>
+                                    <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/gallery/2018/05/24/15271431531310.jpg?x-oss-process=image/resize,m_pad,limit_0,h_220,w_220"
+                                        alt="" srcset="" style="width: 82px;height: 82px;">
+                                </li>
+                                <li class="name">
+                                    <a href="javascript:void(0);" title="膜法世家四合一胶囊面膜贴套装20片" class="item-title">
+
+                                        膜法世家四合一胶囊面膜贴套装20片
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="space">&nbsp;</div>
+                                </li>
+                                <li>
+                                    <div class="price">
+                                        <div class="originPrice">
+                                            ￥338.00
+                                        </div>
+                                        <div class="currentPrice">
+                                            ￥159.90
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="six" style="width: 110px;">
+                                    <div class="num">
+                                        <button class="btn1"></button>-</button>
+                                        <span >1</span>
+                                        <button class="btn2">+</button>
+                                    </div>
+
+                                </li>
+                                <li class="seven">
+                                    ￥497.7
+                                </li>
+                                <li class="eight">删除</li>
+                            </ul>
+
+                        </div> -->
+
+
+                    </div>
+                </div>
+
+                <!--  购物车底部开始 -->
+                <div class="cart-footer">
+                    <div class="th one" style="
+            width: 15px;
+        ">
+                        <input type="checkbox" name="" id="">
+                    </div>
+                    <div class="th two" style="
+            width: 30px;
+            margin-left: -140px;
+        ">
+                        <span>全选</span>
+                    </div>
+                    <div class="th three" style="
+            width: 30px;
+            margin-left: -119px;
+        ">
+                        <span id="delAll">删除</span>
+                    </div>
+
+                    <div class="th four" style="
+            width: 108px;
+            margin-left: 120px;
+        ">
+                        <span>已选商品</span>
+                        <span class="hasChose">0</span>件
+                    </div>
+                    <div class="th five" style="
+        width: 200px;
+        margin-right: -150px;
+    ">
+                        合计（不含运费）：<span>￥<span class="allMoney"></span>0</span><span>
+                    </div>
+                    <div class="th six">
+                        <button class="pay" style="
+        width: 120px;
+        color: white;
+        background: green;
+        font-size: 18px;
+        outline: none;
+        border: 0;
+    ">结&nbsp;算</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer style="position: absolute;bottom: 0;left: 0;width: 100%;">
+
+    </footer>
+</body>
+<script src="../js/jquery-1.11.3.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $("header").load('../layout/header1.html');
+    // $("footer").load('../layout/footer2.html')
+    $('#identifier').carousel('cycle')
+
+    $.getScript("../js/head3.js", function () {
+        search();
+    });
+
+    $(function () {
+        var userName = localStorage.getItem('user')
+        $.ajax({
+            type: "get",
+            url: "../php/cart_list.php",
+            data: {
+                user_id: userName,
+            },
+            dataType: "json",
+            success: function (res) {
+                var html = '';
+                // console.log(res);
+                for (var i = 0; i < res.length; i++) {
+                    const { id, goods_name, goods_num, goods_currentPrice,
+                        goods_originPrice, small_img1, goods_id, subtotal } = res[i];
+                    html += `
+                        <div class="item" data-del=${id} style="
+                        width: 962px;
+                        height: 120px!important;
+                        background: #fcfcfc;
+                        border-bottom: 1px solid #e7e7e7;
+                        padding: 20px;
+                        box-sizing: border-box;">
+                            <ul class="oUl" style=" width: 962px;
+                         height: auto;
+                         display: flex;
+                         justify-content: space-between;
+                         float: left;
+                         flex-direction: row;
+                        //  padding:30px;
+                            box-sizing: border-box;
+">
+                                <li style="  margin:0 10px;height: 50px;
+                            text-align: left;">
+                                    <input type="checkbox" name="one" class="one check-one" style="width: 45px;">
+                                </li>
+                                <li style="  margin:0 10px;height: 50px;
+                            text-align: left;">
+                                    <a href='./detail.html?goods_id=${goods_id}'>
+                                        <img src=${
+                        small_img1}
+                                        alt="" srcset="" style="width: 82px;height: 82px;">
+                                        </a>
+                                 
+                                </li>
+                                <li class="name" style="  margin:0 10px;height: 50px;
+                            text-align: left; width:170px">
+                                    <a style="
+                                    width: 176px;word-wrap: none;color: #666;
+                                text-decoration: none;
+                                    " href="./detail.html?goods_id=${
+                        goods_id}" title="${
+                        goods_name}" class="item-title">
+
+                                        ${
+                        goods_name}
+                                    </a>
+                                </li>
+                                <li style="  margin:0 10px;height: 50px;
+                            text-align: left;">
+                                    <div class="space" styl;e="width: 192px;">&nbsp;</div>
+                                </li>
+                                <li style="  margin:0 10px;height: 50px;
+                            text-align: left;">
+                                    <div class="price" style=" width: 145px;">
+                                        <div class="originPrice"
+                                        style=" color: #999;
+                                        text-decoration: line-through;">
+                                            ￥${
+                        goods_originPrice}
+                                        </div>
+                                        <div class="currentPrice"
+                                        style="
+                                        color: #666;
+                                        font-weight: 600;
+                                        font-size: 14px;">
+                                            ￥<span class=curr>${
+                        goods_currentPrice}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="six" style="width: 110px;">
+                                    <div class="num" style="
+                                    width:77px;height: 25px;background:#f1f1f1 ;display: flex;justify-content: space-between; ">
+                                        <button class="btn1"
+                                        style="
+                                        width: 17px;
+                               
+                               height: 23px;
+                               border: 1px solid #e5e5e5;
+                                        "></button>-</button>
+                                        <span class='property'
+                                        style="
+                                        padding: 3px 0;
+                                height: 17px;
+                                width: 37px;
+                                text-align: center;">${
+                        goods_num}</span>
+                                        <button class="btn2"
+                                        style="
+                                        width: 17px;
+                                height: 23px;
+                                border: 1px solid #e5e5e5;">+</button>
+                                    </div>
+
+                                </li>
+                                <li class="seven">
+                                    ￥<span class='total' >${subtotal}</span>
+                                </li>
+                                <li class="eight">删除</li>
+                            </ul>
+
+                        </div>
+                        
+                        `
+
+                }
+                $('.cart_list').append(html);
+
+                // sumTotal()
+                function sumTotal() {
+                    var sum = 0;
+                    var count = 0;
+                    $(".item").each(function () {
+                        ($(".total").html() * 1).toFixed(2)
+                        $(".allMoney").html('');
+                        $(".hasChose").html('')
+                        if ($(this).find(".check-one").prop("checked")) {
+                            // console.log("0000");
+                            sum += ($(this).find('.total').get()[0].innerHTML) * 1
+                            count += ($(this).find('.property').get()[0].innerHTML) * 1
+                            // count=count.toFixed(2)
+                        }
+
+                    })
+                    console.log(sum);
+                    $(".allMoney").html(sum.toFixed(1))
+                    $(".hasChose").html(count)
+                    $(".myCar").html(count)
+
+                }
+
+                // 实现单选和全选
+                // 全选
+
+                $("input[name=all]").click(function () {
+                    sumTotal()
+                    if (this.checked) {
+                        // console.log(111);
+
+                        $(".cart_list :checkbox").prop("checked", true);
+
+                        // 已选择商品的数量
+                        console.log(res);
+                        var num = 0;
+                        res.forEach(element => {
+                            num += (element.goods_num) * 1;
+                            return num
+                        });
+
+                        $(".hasChose").html(num)
+                        sumTotal()
+                    } else {
+                        $(".check-one").prop("checked", false);
+                        console.log(222);
+                        $(".allMoney").html(0)
+                        $(".hasChose").html(0)
+                        $(".myCar").html(0)
+                    }
+
+                    // 
+                })
+                // 单选
+                $(".check-one").click(function () {
+
+
+                    if ($(".check-one:checked").length == $(".check-one").length) {
+                        $(".check_all").prop("checked", true);
+                        // console.log(1);
+                        $("input[name=all]:checkbox").prop("checked", true);
+
+                    } else {
+                        $(".check_all").prop("checked", false);
+                        // console.log(0);
+                        $("input[name=all]:checkbox").prop("checked", false);
+
+                    }
+                    sumTotal()
+
+
+                })
+
+
+
+
+                // 加法
+
+                $(document).on('click', ".btn2", function () {
+                    sumTotal()
+                    var num = $(this).prev().html() * 1;
+                    var price = $(this).parents(".six").prev().children().find(".curr").html() * 1
+                    num++;
+                    $(this).prev().html(num)
+                    $(this).parents('.six').next().find('.total').html(num * price); 
+                    var id = $(this).parents('.item').attr("data-del");
+                    var bool='-1';
+                    $.ajax({
+                        type:"get",
+                        url:"../php/updatecar.php",
+                        data:{
+                            id,
+                            bool,
+                        },
+                        dataType:'json',
+                        success:function(res){
+                            console.log(res);
+                            
+                        }
+                    })
+                    sumTotal()
+                })
+
+                // 减法
+
+                // console.log(num);
+
+                $(document).on('click', ".btn1", function () {
+                    sumTotal()
+                    var num = $(this).next().html() * 1;
+                    var price = $(this).parents(".six").prev().children().find(".curr").html() * 1
+                    console.log(price);
+
+                    sumTotal()
+                    if (num == 1) {
+                        return false;
+                    }
+                    num--;
+                    $(this).next().html(num)
+                    $(this).parents('.six').next().find('.total').html(num * price);
+                    var id = $(this).parents('.item').attr("data-del");
+                    var bool='0';
+                    $.ajax({
+                        type:"get",
+                        url:"../php/updatecar.php",
+                        data:{
+                            id,
+                            bool,
+                        },
+                        dataType:'json',
+                        success:function(res){
+                            console.log(res);
+                            
+                        }
+                    })
+
+                })
+
+                // 删除一条
+                $(document).on("click", ".eight", function () {
+                    console.log(12332344);
+                    var id = $(this).parents('.item').attr("data-del");
+                    console.log(id);
+
+                    $(this).parents('.item').remove();
+                    $.ajax({
+                        type: "get",
+                        url: "../php/delCar.php",
+                        dataType: 'json',
+                        data: {
+                            id,
+                        },
+                        success: function (res) {
+                            console.log(res)
+                        }
+                    })
+                    sumTotal()
+                })
+                // 删除所有的
+                $(document).on('click', '#delAll', function () {
+                    $(".cart_list").html('');
+                    console.log(res);
+                    res.forEach(ele=>{
+                       var id=ele.id;
+                       $.ajax({
+                        type: "get",
+                        url: "../php/delCar.php",
+                        dataType: 'json',
+                        data: {
+                            id,
+                        },
+                        success: function (res) {
+                            console.log(res)
+                        }
+                    })
+                    })
+                    
+                    // var id = $(this).parents('.item').attr("data-del");
+              
+                    sumTotal()
+                })
+                // 已经选择的商品金额合计
+            }
+
+        })
+    })
+
+
+
+
+</script>
+
+
+</html>

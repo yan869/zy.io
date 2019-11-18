@@ -1,0 +1,117 @@
+.swiper{
+
+    .item{
+        img{
+            width:100%;
+            height: 100%;
+        }
+    }
+    
+}
+.msg{
+    width:100%;
+    height:170px;
+    margin: 15px auto 0;
+    text-align: center;
+    .center{
+        width: 1210px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 auto;
+        li{
+            width: 310px;
+            text-align: center;
+            list-style: none;
+            margin: 0 8px;
+            display: flex;
+            // background: #0E6F3C; 
+        }
+     
+        li:first-child{
+            list-style: none;
+            width: 300px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow: hidden;
+            div{
+                width: 50%;
+                background: #0E6F3C;
+                text-align: center;
+            }
+        }
+    }
+}
+.goods{
+    width:100%;
+    .content{
+        width: 1210px;
+        margin: 0 auto;
+       
+        ul{
+            margin-left: -10px;
+            display: inline-block;
+            li{
+                
+                margin: 0 0 10px 10px;
+                display: inline-block;
+                // float: left;
+                a{
+                    text-decoration: none;
+                    color:#666;
+                    position: relative;
+                    display: block;
+                    padding: 6px 4px;
+                    width: 224px;
+                    height: 297px;
+                    border: 1px solid #F6F6F6;
+                    background-color: #fff;
+                    text-align: center;
+                    overflow: hidden;
+                    .main{
+                        position: relative;
+                        img{
+                            display: inline-block;
+                            width: 100%;
+                            height: 220px;
+                        }
+                    }
+                    .info{
+                        padding: 10px;
+                        text-align: left;
+                        border: none;
+                        .name{
+                            overflow: hidden;
+                            margin-bottom: 5px;
+                            height: 36px;
+                        }
+                        .price{
+                            .now{
+                                font-size: 14px;
+                                color:#0f6e3c;
+                            }
+                            .prev{
+                                font-size: 12px;
+                                color: #999;
+                                margin-left: 5px;
+                                text-decoration: line-through;
+                            }
+                            img{
+                                position: absolute;
+                                bottom: 6px;
+                                right: 8px;
+                                width: 30px;
+                                height: 30px;
+                                cursor: pointer;
+                                -moz-background-size: 30px 30px;
+                                background-size: 30px 30px;
+                                background-repeat: no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

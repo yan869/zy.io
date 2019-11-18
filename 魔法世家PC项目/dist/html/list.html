@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="head">
+
+
+    </div>
+    <!-- 商品部分 -->
+    <div class="rank">
+        <span class="salenum">销量</span>
+         <span class="top s-top active">↑</span>
+        <!-- <span class="down ">↓</span> -->
+        <span class="goodsprice">价格</span>
+        <span class="top j-top jia">↑</span>
+        <!-- <span class="down ">↓</span> -->
+        <span class="hot">人气</span>
+        <span class="top h-top ren">↑</span>
+        <!-- <span class="down ">↓</span> -->
+    </div>
+    <div class="goods">
+        <div class="content">
+            <ul class="oul">
+                <!-- <li>
+                    <a href="./detail.html" class="toDetail">
+                        <div class="main">
+                            <img src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/shop/1/gallery/2018/05/25/15272372350522.jpg?x-oss-process=image/resize,m_pad,limit_0,h_220,w_220" alt="" srcset="">
+                        </div>
+                        <div class="info">
+                            <p class="name">
+                                膜法世家水光面膜贴20片
+                            </p>
+                            <p class="price">
+                                <span class="now">￥129</span>
+                                <span class="prev">
+                                    ￥269.90      
+                                </span>
+                                <img src="../img/cart.png" alt="" srcset="">
+                            </p>
+                        </div>
+                    </a>
+                </li> -->
+
+            </ul>
+
+
+            <!-- 分页 -->
+            <div id="page" class="page_div">
+
+            </div>
+
+            <div class="first page">
+            </div>
+
+            <div class="second">
+            </div>
+            <!-- 分页部分结束 -->
+        </div>
+    </div>
+    <div class="footer">
+
+    </div>
+</body>
+<script src="../js/jquery-1.11.3.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="../js/list.js"></script>
+<script>
+    $.getScript("../js/head.js", function () {
+        search();
+    });</script>
+<link rel="stylesheet" href="../css/list.css">
+
+</html>

@@ -1,0 +1,114 @@
+.goods {
+  width: 100%; }
+  .goods .content {
+    width: 1210px;
+    margin: 0 auto; }
+    .goods .content ul {
+      margin-left: -10px;
+      display: inline-block; }
+      .goods .content ul li {
+        margin: 0 0 10px 10px;
+        display: inline-block; }
+        .goods .content ul li a {
+          text-decoration: none;
+          color: #666;
+          position: relative;
+          display: block;
+          padding: 6px 4px;
+          width: 224px;
+          height: 297px;
+          border: 1px solid #F6F6F6;
+          background-color: #fff;
+          text-align: center;
+          overflow: hidden; }
+          .goods .content ul li a .main {
+            position: relative; }
+            .goods .content ul li a .main img {
+              display: inline-block;
+              width: 100%;
+              height: 220px; }
+          .goods .content ul li a .info {
+            padding: 10px;
+            text-align: left;
+            border: none; }
+            .goods .content ul li a .info .name {
+              overflow: hidden;
+              margin-bottom: 5px;
+              height: 36px; }
+            .goods .content ul li a .info .price .now {
+              font-size: 14px;
+              color: #0f6e3c; }
+            .goods .content ul li a .info .price .prev {
+              font-size: 12px;
+              color: #999;
+              margin-left: 5px;
+              text-decoration: line-through; }
+            .goods .content ul li a .info .price img {
+              position: absolute;
+              bottom: 6px;
+              right: 8px;
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+              -moz-background-size: 30px 30px;
+              background-size: 30px 30px;
+              background-repeat: no-repeat; }
+    .goods .content .page_div {
+      text-align: center;
+      margin: 20px 10px 20px 0;
+      color: #666; }
+    .goods .content .page_div button {
+      display: inline-block;
+      min-width: 30px;
+      height: 28px;
+      cursor: pointer;
+      color: #666;
+      font-size: 13px;
+      line-height: 28px;
+      background-color: #f9f9f9;
+      border: 1px solid #dce0e0;
+      text-align: center;
+      margin: 0 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none; }
+    .goods .content #firstPage,
+    .goods .content #lastPage,
+    .goods .content #nextPage,
+    .goods .content #prePage {
+      width: 50px;
+      color: #0073A9;
+      border: 1px solid #0073A9; }
+    .goods .content #nextPage,
+    .goods .content #prePage {
+      width: 70px; }
+    .goods .content .page_div .current {
+      background-color: #0073A9;
+      border-color: #0073A9;
+      color: #FFF; }
+    .goods .content .totalPages {
+      margin: 0 10px; }
+    .goods .content .totalPages span,
+    .goods .content .totalSize span {
+      color: #0073A9;
+      margin: 0 5px; }
+    .goods .content .page_div button:disabled {
+      opacity: .5;
+      cursor: no-drop; }
+
+.rank {
+  width: 1210px;
+  margin: auto;
+  background: cornsilk;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 60px; }
+  .rank .salenum, .rank .goodsprice, .rank .hot {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center; }
+
+/*# sourceMappingURL=list.css.map */

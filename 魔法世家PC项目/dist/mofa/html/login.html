@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="">
+                <img alt=""
+                    src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/system/config/mall/mall_logo_0.png">
+            </a>
+            <span class="welco">欢迎登录</span>
+        </div>
+    </div>
+    <!-- 头部结束 -->
+    <div class="banner">
+        <!-- 登录主板 -->
+
+        <div class="login">
+            <p class="toRegister">
+                还没有账号，<a href="./register.html">立即注册 ></a>
+            </p>
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab">
+                        普通登录</a>
+                </li>
+                <li><a href="#ios" data-toggle="tab">动态密码登录</a></li>
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <!-- 普通登录的区域 -->
+
+                <div class="tab-pane fade in active" id="home">
+                    <div class="board">
+                        <div class="user">
+                            <div class="username">
+                                <input type="text" class="userd" placeholder="请输入用户名或手机号" style="
+                                            width: 300px;
+                                            height: 32px;
+                                            text-indent: 4px;
+                                            line-height: 40px;
+                                            font-size: 14px;
+                                            margin-top: 20px;
+                                        ">
+                                <div class="user_sapn" style="height: 20px;display: none;">
+                                   
+                                </div>
+
+                                <input type="text" placeholder="密码" class="pwd" style="
+                                               width: 300px;
+                                               height: 32px;
+                                               text-indent: 4px;
+                                               line-height: 40px;
+                                               font-size: 14px;
+                                               margin-top: 20px;
+                                           ">
+                            </div>
+                            <div class="pwd pwd_span" style="height: 20px; display:none">
+                             
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="auto" style="
+    display: flex;
+    justify-content: space-between!important;
+    margin-top: 22px;
+">
+                        <span class="autoLogin">
+                            <input type="checkbox" name="" id="">
+                            自动登录
+                        </span>
+                        <span class="forget">
+                            忘记密码？
+                        </span>
+                    </div>
+                    <div class="lgbtn" style="height: 40px;
+                    color:white;
+                    background:#0f6e3c;
+                    text-align: center;
+                    line-height: 40px;margin-top: 10px ">
+                        立即登录
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="ios">
+                <div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <!-- 底部 -->
+    <div class="footer">
+
+    </div>
+</body>
+<script src="../js/jquery-1.11.3.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(".footer").load('../layout/footer1.html')
+    // 选项卡
+    $(function () {
+        $('#myTab li:eq(0) a').tab('show');
+    });
+
+
+
+    // 获取input里面的值
+
+
+
+    $(".lgbtn").click(function () {
+    
+        
+        var user = $(".userd").val();
+        var pwd = $(".pwd").val();
+      
+
+        // 前端验证用户名或密码
+        if ((user || pwd) == '') {
+            alert("用户名或密码不能为空")
+            return false;
+        } else {
+            //请求后台的数据
+            $.ajax({
+                type: "post",
+                url: "../php/login.php",
+
+                data: {
+                    count: user,
+                    password: pwd,
+                },
+                success: function (res) {
+                    var result = JSON.parse(res)
+                    var userMsg = result.user;
+                    if (result.status) {
+                        //    console.log(111);存用户名，可以
+                        $(".user_sapn").css({display:'none',
+                        color:'#000'}).html('');
+                        $(".pwd_span").css({display:'none',
+                        color:'#000'}).html('');
+
+                        var savelogin = localStorage.setItem('user', userMsg)
+                        var backUrl = localStorage.getItem('back');
+                        var addCar=localStorage.getItem("addCar")
+                        if (backUrl) {
+                            location.href = './index.html'
+                           
+                        }else {
+                        //
+                        
+                        location.href=decodeURIComponent(addCar)
+
+                        localStorage.removeItem('addCar')
+                        if(!addCar){
+                           var loginurl= localStorage.getItem('loginUrl')
+                            location.href = decodeURIComponent(loginurl)
+                        }
+                    }
+                    } else{
+                        if(user!=result.user){
+                          
+                            $(".user_sapn").css({display:'block',
+                        color:'red'}).html('用户名或手机号错误')
+                        }else{
+                            $(".user_sapn").css({display:'none',
+                        color:'#000'}).html('');
+                       
+                        }
+
+                        $('.pwd_span').css({display:'block',
+                        color:'red'}).html('密码错误')
+
+                   
+                    }
+                }
+            })
+
+        }
+
+
+
+
+
+    })
+
+
+
+</script>
+
+</html>

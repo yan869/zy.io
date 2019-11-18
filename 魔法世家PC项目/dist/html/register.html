@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header" style="padding:0 ">
+            <div class="logo">
+                <a href="">
+                    <img alt=""
+                        src="https://68yun.oss-cn-beijing.aliyuncs.com/images/15403/system/config/mall/mall_logo_0.png">
+                </a>
+                <span class="welco">欢迎注册</span>
+            </div>
+        </div>
+        <!-- 中间内容 -->
+        <div class="content">
+            <p>我已经注册，现在就<a href="./login.html">登录</a></p>
+            <div class="main">
+                <div class="form-group ">
+
+                    <div class="dx_msg">
+                        <div class="message">
+                            <span>*</span>
+                            <span class="asda">用户名：</span>
+                            <span><input type="text" class="myName aa"></span>
+                            <span class="dx_yzm_span tips"></span>
+                        </div>
+                    </div>
+                    <div class="tel">
+                        <div class="phone">
+                            <span>*</span>
+                            <span class="tel"> 手机号：</span>
+                            <span><input type="text" class="myTel aa"></span>
+                            <span class="tel_span tips"></span>
+                        </div>
+                    </div>
+                    <div class="pwd">
+                        <div class="password">
+                            <span>*</span>
+                            <span class="mima"> 密码：</span>
+                            <span><input type="text" class="myMima aa"></span>
+                            <span class="pwd_span tips"></span>
+                        </div>
+                    </div>
+                    <div class="yzm">
+                        <div class="yanzhen">
+                            <span>*</span>
+                            <span class="yzm_code"> 验证码：</span>
+                            <span><input type="text" class="myYzm aa"></span>
+                            <span class="random_code">1234</span>
+                            <span class="yzm_span tips"></span>
+
+
+                        </div>
+                    </div>
+                    <!-- <div class="dx_msg">
+                        <div class="message">
+                            <span>*</span>
+                            <span class="asda">短信验证码：</span>
+                            <span><input type="text" class="myCode"></span>
+                            <span class="dx_random_code"><button class="dx_code">获取短信验证码</button></span>
+                            <span class="dx_yzm_span tips"></span>
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+                <div class="agree">
+                    <input type="checkbox" id="" checked>
+                    我已阅读并同意<a href="javascript:;">《用户协议》</a>
+                </div>
+
+                <div class="btn">
+                    同意协议并注册
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 底部 -->
+    <div class="footer">
+
+    </div>
+</body>
+<script src="../js/jquery-1.11.3.js"></script>
+<script>
+    $(".footer").load('../layout/footer1.html', function () {
+        // console.log("这里可以在此处引入js 文件  $.getScript()")
+    });
+
+    // 注册前端验证
+    $(".btn").click(function () {
+        // 获取内容
+        var telephone = $(".myTel").val();
+        var password = $(".myMima").val();
+        var yanzhenma = $(".myYzm").val();
+        var username = $(".myName").val()
+        console.log($(".random_code").html());
+
+        if ((telephone || password || yanzhenma || username) == "") {
+            $(".aa").css("border", "1px solid red")
+            $(".tips").html("!").css("color", "red")
+            return false;
+        } else {
+            $(".tips").html("");
+            var regs = /^[a-zA-Z]{1}[A-Z|a-z|0-9]{5,29}/;
+            if (!regs.test(username)) {
+                $(".dx_yzm_span").html('请输入以字母开头的6到30位字符用户名').css({ color: "red" });
+                $(".myName").css("border", "1px solid red");
+            } else {
+                $(".dx_yzm_span").html("");
+                $(".myName").css("border", "1px solid black");
+
+                var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+
+                if (!reg.test(telephone)) {
+                    $(".tel_span").html("手机号错误").css({ color: "red" })
+                    $(".myTel").css("border", "1px solid red")
+                } else {
+                    $(".tel_span").html("")
+                    $(".myTel").css("border", "1px solid black")
+                    // 验证密码
+                    var reg1 = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+                    if (!reg1.test(password)) {
+                        $(".pwd_span").html("密码由6到20位数字、字母、下划线组成").css({ color: "red" });
+                        $(".myMima").css("border", "1px solid red")
+                    } else {
+                        $(".pwd_span").html("")
+                        $(".myMima").css("border", "1px solid black");
+
+                        // 验证验证码
+                        var reg2 = /^[0-9]{4}$/
+                        if (yanzhenma.toLocaleLowerCase() != $(".random_code").html().toLocaleLowerCase()) {
+                            $(".yzm_span").html("请输入4位数字验证码").css({ color: "red" });
+                            $(".myYzm").css("border", "1px solid red")
+
+                        } else {
+                            $(".yzm_span").html("");
+                            $(".myYzm").css("border", "1px solid black");
+
+
+                            //请求接口数据并且，插入进去数据库
+                            $(
+                                function () {
+                                    var username = $(".myName").val()
+                                    var telephone = $(".myTel").val();
+                                     var password = $(".myMima").val();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "../../php/register.php",
+                                        data:{
+                                            username,
+                                            telephone,
+                                            password
+                                        },
+                                        success: function (msg) {
+                                            // alert("Data Saved: " + msg);
+                                            var thisUrl=window.location.href;
+                                            console.log(msg);
+                                            localStorage.setItem('back',thisUrl)
+                                            location.href = "./login.html"
+                                        }
+                                    });
+                                }
+                            )
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+
+
+
+    })
+    $(".random_code").css({
+
+        width: "150px",
+        height: "28px",
+        fontSize: "20px",
+        textAlign: "center",
+        background: "#F5F5F5"
+
+    })
+    $(".yzm").css("position", "relative")
+    $(".random_code").click(function () {
+        // console.log(1244);
+
+        yz();
+    })
+
+    function yz() {
+
+        // $(".random_code").style.display="none"
+        function createCode(length) {
+            var code = "";
+            var codeLength = parseInt(length); //验证码的长度
+            var checkCode = $(".random_code");
+            var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+
+            for (var i = 0; i < codeLength; i++) {
+                //获取随机验证码下标
+                var charNum = Math.floor(Math.random() * 62);
+                //组合成指定字符验证码
+                code += codeChars[charNum];
+            }
+
+            checkCode.html(code);
+        }
+
+        window.onload = function () {
+            createCode(4);
+            validateCode();
+        };
+        function validateCode() {
+            var checkCode = $(".random_code").html();
+            var inputCode = $(".myYzm").val();
+            // console.log(inputCode);
+
+            if (inputCode.length < 0) {
+                $(".random_code").css("display", "block");
+            } else if (inputCode.toLocaleLowerCase() == checkCode.toLocaleLowerCase()) {
+                $(".random_code").css("display", "none");
+            } else {
+                $(".random_code").css("display", "block");
+                createCode(4);
+            }
+        }
+
+        validateCode();
+    }
+
+    // validateCode()
+    yz();
+
+
+
+    
+   
+    
+</script>
+
+</html>
