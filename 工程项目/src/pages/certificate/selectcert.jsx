@@ -265,15 +265,15 @@ class Selectcert extends React.Component {
 			str += '\n' +
 				data[i].swWorker["workersn"] + ',' +
 				data[i].swWorker["nickName"] + ',' +
-				data[i].swWorker["name"] + ',' +
-				data[i].swWorker["phone"] + ',' +
+				data[i].swWorker["name"] + ',' +"\t"+
+				data[i].swWorker["phone"] + ',' +"\t"+
 				data[i].swWorker["idNo"] + ',' +
 				eType + ',' +
 				eParServicecategoryid + ',' +
 				(data[i].swSignTeam ? data[i].swSignTeam["teamsn"] : '') + ',' +
 				(data[i].swSignTeam ? data[i].swSignTeam["name"] : '') + ',' +
-				eStatus + ',' +
-				data[i].createtime + ',' +
+				eStatus + ','  +"\t"+
+				data[i].createtime + ','  +"\t"+
 				data[i].reauthtime + ',' +
 				data[i].orderCount
 
@@ -562,7 +562,7 @@ class Selectcert extends React.Component {
 					<Form.Item>
 						<Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
 						<Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent}>重置</Button>
-
+						<Button className="btn1"  type="primary" onClick={() => { this.downloadCsv(this.state.downLoadData) }}><Icon type="download" /> 导出认证成功电工</Button>
 					</Form.Item>
 				</Form>
 				<div className='table-wrapper'>
@@ -584,7 +584,7 @@ class Selectcert extends React.Component {
 						size="middle" align="center"
 						columns={columns} dataSource={this.state.tableData.data} loading={this.state.loading} />
 					<div className="btn2">
-						<Button className="btn1" onClick={() => { this.downloadCsv(this.state.downLoadData) }}><Icon type="download" /> 导出认证成功电工</Button>
+				
 
 					</div>
 

@@ -209,16 +209,16 @@ class Auditor extends React.Component {
       if (eStatus === "认证成功" && eParServicecategoryid === "电工") {
         str += '\n' +
           data[i].workerSn + ',' +
-          data[i].name + ',' +
-          data[i].idNo + ',' +
+          data[i].name + ','  +"\t"+
+          data[i].idNo + ',' +"\t"+
           data[i].createtime + ',' +
           eStatus + ',' +
           data[i].failreason + ',' +
           data[i].certname + ',' +
           eParServicecategoryid + ',' +
-          data[i].certno + ',' +
-          data[i].certstarttime + ',' +
-          data[i].certendtime + ',' +
+          data[i].certno + ','  +"\t"+
+          data[i].certstarttime + ',' +"\t"+
+          data[i].certendtime + ','  +"\t"+
           data[i].reauthtime
       }
 
@@ -497,7 +497,13 @@ class Auditor extends React.Component {
             <Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
             <Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
 
-
+            <Button className="btn1"  type="primary" onClick={async () => {
+              await this.setState({
+                isDownLoad: true
+              })
+              await this.getBookList()
+              this.downloadCsv(this.state.exportData)
+            }}><Icon type="download" /> 导出</Button>
           </Form.Item>
         </Form>
         <div className='table-wrapper'>
@@ -522,13 +528,7 @@ class Auditor extends React.Component {
              size="middle" 
              align="center" />
           <div className="btn2">
-            <Button className="btn1" onClick={async () => {
-              await this.setState({
-                isDownLoad: true
-              })
-              await this.getBookList()
-              this.downloadCsv(this.state.exportData)
-            }}><Icon type="download" /> 导出</Button>
+      
           </div>
 
         </div>

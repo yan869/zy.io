@@ -87,13 +87,13 @@ class Succeed extends React.Component {
 			
 			str += '\n' +
 				data[i].avataimg + ',' +
-				data[i].nickName + ',' +
+				data[i].nickName + ',' +"\t"+
 				data[i].phone + ',' +
 				data[i].alipayname + ',' +
-				data[i].alipay + ',' +
+				data[i].alipay + ',' +"\t"+
 				data[i].createtime + ',' +
 				data[i].money + ',' +
-				eStatus + ',' +
+				eStatus + ','  +"\t"+
 				data[i].jiaoyitime
 		}
 		//Excel打开后中文乱码添加如下字符串解决
@@ -207,6 +207,13 @@ class Succeed extends React.Component {
 					<Form.Item>
 						<Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
 						<Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+						<Button className="btn1"  type="primary" onClick={async () => {
+						await this.setState({
+							isDownLoad: true
+						})
+						await this.getList();
+						this.downloadCsv(this.state.tableData.data)
+					}}><Icon type="download" /> 导出</Button>
 					</Form.Item>
 				</Form>
 				<div className='table-wrapper'>
@@ -229,13 +236,7 @@ class Succeed extends React.Component {
 						columns={columns} dataSource={this.state.tableData.data} loading={this.state.loading} />
 					{/* 导出 */}
 					<div className="btn2">
-					<Button className="btn1" onClick={async () => {
-						await this.setState({
-							isDownLoad: true
-						})
-						await this.getList();
-						this.downloadCsv(this.state.tableData.data)
-					}}><Icon type="download" /> 导出</Button>
+			
 					</div>
 
 				</div>

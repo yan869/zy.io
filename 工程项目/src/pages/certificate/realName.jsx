@@ -207,10 +207,14 @@ class RealName extends React.Component {
                 title: "本人照片",
                 dataIndex: 'photo',
                 key: 'photo',
-                width: 60,
+                width: 80,
                 align: "center",
                 render: (text, record) => {
-                    return <Zmage src={text} style={text&&({ display: 'block', width: "100px", height: "60px", objectFit: "cover" })} alt="" />
+                    return <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Zmage src={text} style={text && ({ display: 'block', width: "100%", height: "60px", objectFit: "cover" })} alt="" />
+                    </div>
+
+
                 }
             },
             {
@@ -220,9 +224,9 @@ class RealName extends React.Component {
                 width: 100,
                 align: "center",
                 render: (text, record) => {
-                    return <div style={{ display: 'flex', flexDirection: "center",justifyContent:"center" }}>
-                        <Zmage src={record.idcardobverse} alt="" style={text&&({ width: 60, height: 60, objectFit: "cover", marginRight: "5px" })} />
-                        <Zmage src={record.idcardreverse} alt="" style={text&&({width: 60, height: 60, objectFit: "cover"})} />
+                    return <div style={{ display: 'flex', flexDirection: "center", justifyContent: "center" }}>
+                        <Zmage src={record.idcardobverse} alt="" style={text && ({ width: 60, height: 60, objectFit: "cover", marginRight: "5px" })} />
+                        <Zmage src={record.idcardreverse} alt="" style={text && ({ width: 60, height: 60, objectFit: "cover" })} />
 
                     </div>
 
@@ -245,7 +249,7 @@ class RealName extends React.Component {
                     return <span>{(status === 0 ? "待审核" : (status === 1 ? "通过" : '未通过'))}</span>
                 }
 
-            } ,
+            },
             {
                 title: "操作",
                 dataIndex: 'action',

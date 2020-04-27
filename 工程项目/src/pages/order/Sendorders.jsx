@@ -100,22 +100,22 @@ class Sendorders extends React.Component {
 				str += '\n' +
 					data[i].id + ',' +
 					data[i].ordersn + ',' +
-					data[i].name + ',' +
+					data[i].name + ',' + "\t" +
 					data[i].userPhone + ',' +
-					data[i].title + ',' +
+					data[i].title + ',' + "\t" +
 					data[i].ordertime + ',' +
 					eType + ',' +
 					eStatus + ',' +
-					data[i].workName + ',' +
+					data[i].workName + ',' + "\t" +
 					data[i].workPhone + ',' +
 					data[i].money
 			} else {
 				str += '\n' +
-					data[i].id + ',' +
+					data[i].id + ',' + "\t" +
 					data[i].ordertime + ',' +
 					data[i].ordersn + ',' +
 					data[i].name + ',' +
-					data[i].workerid + ',' +
+					data[i].workerid + ',' + "\t" +
 					data[i].workPhone + ',' +
 					data[i].title + ',' +
 					eselectType + ',' +
@@ -181,7 +181,7 @@ class Sendorders extends React.Component {
 
 			console.log(values);
 
-			let {  selectType, orderStatus, strTime, name, userPhone, workName, workPhone } = values;
+			let { selectType, orderStatus, strTime, name, userPhone, workName, workPhone } = values;
 			let strBeginTime = "", strEndTime = "", type = '';
 			if (strTime && strTime.length > 0) {
 				strBeginTime = strTime[0].format('YYYY-MM-DD HH:mm:ss')
@@ -349,7 +349,7 @@ class Sendorders extends React.Component {
 				width: 90,
 				render: (text, row) => {
 					let value = "", color = "";
-					selectTypeList.some(item => { 
+					selectTypeList.some(item => {
 						if (row.type === 3) {
 							value = ""
 						}
@@ -447,9 +447,9 @@ class Sendorders extends React.Component {
 					</Form.Item>
 					<Form.Item label="订单类别" >
 						{getFieldDecorator('selectType', {
-							initialValues:"经济型"
+							initialValues: "经济型"
 						})(
-							<Select  style={{ width: 180}}>
+							<Select style={{ width: 180 }}>
 								{
 									selectTypeList.map((item, index) => {
 										return <Option key={index} value={item.value}
@@ -490,6 +490,27 @@ class Sendorders extends React.Component {
 					<Form.Item>
 						<Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
 						<Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+						<span onClick={this.importData} style={{marginRight:15}}>
+							<Upload
+								action={actionUrl}
+								multiple={true}
+								accept='.xlsx,.xls,.csv'
+								beforeUpload={this.uploadMibfiles}
+								onChange={this.fileState}
+								showUploadList={false} className="btn1"
+
+							>
+								<Button type="primary"><Icon type="upload" /> 导入</Button>
+
+							</Upload>
+						</span>
+						<Button className="btn1"  type="primary" onClick={async () => {
+							await this.setState({
+								isDownLoad: true
+							})
+							await this.getOrdersList()
+							this.downloadCsv(this.state.exportData)
+						}}><Icon type="download" /> 导出</Button>
 
 					</Form.Item>
 				</Form>
@@ -514,27 +535,8 @@ class Sendorders extends React.Component {
 
 				</div>
 				<div className="file-box btn2" style={{ marginBottom: "10px" }}>
-					<div onClick={this.importData}>
-						<Upload
-							action={actionUrl}
-							multiple={true}
-							accept='.xlsx,.xls,.csv'
-							beforeUpload={this.uploadMibfiles}
-							onChange={this.fileState}
-							showUploadList={false} className="btn1"
 
-						>
-							<Button type="primary"><Icon type="upload" /> 导入</Button>
 
-						</Upload>
-					</div>
-					<Button className="btn1" onClick={async () => {
-						await this.setState({
-							isDownLoad: true
-						})
-						await this.getOrdersList()
-						this.downloadCsv(this.state.exportData)
-					}}><Icon type="download" /> 导出</Button>
 
 
 
@@ -567,7 +569,7 @@ class Sendorders extends React.Component {
 							<span>{this.state.detailData.type === 3 && "工程订单"}</span>
 							<span>{this.state.detailData.type === 9 && "其他订单"}</span>
 						</Col>
-						{this.state.detailData.type === 3 ? '':<Col className='col-item' span={12}>
+						{this.state.detailData.type === 3 ? '' : <Col className='col-item' span={12}>
 							<span className='title'>订单类别：</span>
 
 							<span>{this.state.detailData.selectType === 0 && "经济型"}</span>
@@ -622,18 +624,18 @@ class Sendorders extends React.Component {
 						</Col>
 						<Col className='col-item' span={12}>
 							<span className='title'>上门费：</span>
-							<span>￥{this.state.detailData.visitFee?this.state.detailData.visitFee.toFixed(2):"0.00"}</span>
+							<span>￥{this.state.detailData.visitFee ? this.state.detailData.visitFee.toFixed(2) : "0.00"}</span>
 						</Col>
 						<Col className='col-item' span={12}>
 							<span className='title'>感谢费：</span>
-							<span>￥{this.state.detailData.thanksFree?this.state.detailData.thanksFree.toFixed(2):"0.00"}</span>
+							<span>￥{this.state.detailData.thanksFree ? this.state.detailData.thanksFree.toFixed(2) : "0.00"}</span>
 						</Col>
 						<Col className='col-item' span={12}>
 							<span className='title'>器材费：</span>
 							{this.state.swItemList.length > 0 ? this.state.swItemList.map((item, index) => {
 								this.state.price += item.price
 								if (index === this.state.swItemList.length - 1) {
-									return <span>￥{this.state.price?this.state.price.toFixed(2):"0.00"}</span>
+									return <span>￥{this.state.price ? this.state.price.toFixed(2) : "0.00"}</span>
 								}
 
 							}) : <span>￥0.00</span>
@@ -641,7 +643,7 @@ class Sendorders extends React.Component {
 						</Col>
 						<Col className='col-item' span={12}>
 							<span className='title'>订单总金额：</span>
-							<span>￥{this.state.detailData.money?this.state.detailData.money:"0.00"}</span>
+							<span>￥{this.state.detailData.money ? this.state.detailData.money : "0.00"}</span>
 						</Col>
 						<Col className='col-item' span={12}>
 							<span className='title'>客户昵称：</span>

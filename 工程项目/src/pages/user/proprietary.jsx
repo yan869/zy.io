@@ -1,7 +1,7 @@
 import React from 'react';
 import "@/styles/proprietary.less";
 import FileSaver from 'file-saver';
-import { parFilter} from '@/utils';
+import { parFilter } from '@/utils';
 import { Form, Icon, message, DatePicker, Input, Button, Table, Avatar } from 'antd'
 const { RangePicker } = DatePicker;
 class Proprietary extends React.Component {
@@ -22,7 +22,7 @@ class Proprietary extends React.Component {
       loadingSub: false,
       isDownLoad: false,
       exportData: [],
-      columns :[
+      columns: [
         {
           title: '用户编号',
           dataIndex: 'id',
@@ -33,7 +33,7 @@ class Proprietary extends React.Component {
         },
         {
           title: '头像',
-          width:100,
+          width: 100,
           align: 'center',
           dataIndex: 'avataimg',
           key: 'avataimg',
@@ -61,8 +61,8 @@ class Proprietary extends React.Component {
           align: 'center',
           dataIndex: 'inviteNumber',
           key: 'inviteNumber',
-          render:(text)=>{
-            return <span>{text?text:0}</span>
+          render: (text) => {
+            return <span>{text ? text : 0}</span>
           }
         },
         {
@@ -146,8 +146,8 @@ class Proprietary extends React.Component {
       str += '\n' +
         data[i].id + ',' +
         data[i].nickName + ',' +
-        data[i].name + ',' +
-        data[i].phone + ',' +
+        data[i].name + ',' + "\t" +
+        data[i].phone + ',' + "\t" +
         data[i].createtime
     }
     //Excel打开后中文乱码添加如下字符串解决
@@ -159,7 +159,7 @@ class Proprietary extends React.Component {
   };
   render() {
     const { getFieldDecorator } = this.props.form;
-    const columns =this.state.columns.map((col, index) => ({
+    const columns = this.state.columns.map((col, index) => ({
       ...col,
     }));
     return (
@@ -179,6 +179,13 @@ class Proprietary extends React.Component {
           <Form.Item>
             <Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit}>查询</Button>
             <Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+            <Button className="btn1" type="primary" onClick={async () => {
+              await this.setState({
+                isDownLoad: true
+              })
+              await this.getOwnerList()
+              this.downloadCsv(this.state.exportData)
+            }}><Icon type="download" /> 导出</Button>
 
           </Form.Item>
         </Form>
@@ -200,15 +207,7 @@ class Proprietary extends React.Component {
             rowKey={(record, index) => index}
             columns={columns} dataSource={this.state.exportData} size="middle" align="center" />
         </div>
-        <div className="btn2" >
-          <Button className="btn1" onClick={async () => {
-            await this.setState({
-              isDownLoad: true
-            })
-            await this.getOwnerList()
-            this.downloadCsv(this.state.exportData)
-          }}><Icon type="download" /> 导出</Button>
-        </div>
+
       </div>
     )
   }

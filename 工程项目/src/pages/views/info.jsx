@@ -200,12 +200,17 @@ class Info extends React.Component {
                                 color: '#fff',
                                 fontSize: 15,
                                 fontWeight: 'bolder',
-
                             }
                         },
+                        borderType: 'solid', //图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+                        borderColor: '#fff', //设置图形边框为淡金色,透明度为0.4
+                        borderWidth: 2, //图形的描边线宽。为 0 时无描边。
+                        opacity: 1,
+                        borderRadius:'80%',
                         lineStyle: {
                             color: '#000',
                             width: 1,
+                            borderRadius:10,
                             type: 'solid' // 'curve'|'broken'|'solid'|'dotted'|'dashed'
                         }
                     }
@@ -218,12 +223,15 @@ class Info extends React.Component {
                         symbol: 'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925436222,738093984&fm=111&gp=0.jpg',
                         itemStyle: {
                             normal: {
+                                
                                 label: {
                                     show: true,
                                     position: 'top',
+                                   
                                 }
                             },
-                            color: '#F70968'
+                            color: '#F70968',
+                            
                         },
                         children: [
                             {
@@ -275,7 +283,7 @@ class Info extends React.Component {
                             {
                                 name: `订单提现金额:￥${info.reflectMoney ? info.reflectMoney : 0}`,
                                 symbol: 'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925436222,738093984&fm=111&gp=0.jpg',
-                                symbolSize: [120, 60],
+                                symbolSize: [160, 60],
                                 itemStyle: {
                                     normal: {
                                         label: {

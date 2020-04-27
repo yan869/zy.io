@@ -116,7 +116,7 @@ class Payment extends React.Component {
                 money + ',' +
                 category + ',' +
                 paystatus + ',' +
-                data[i].payScene + ',' +
+                data[i].payScene + ','  +"\t"+
                 data[i].payTime + ',' +
                 handlestatus
         }
@@ -124,7 +124,7 @@ class Payment extends React.Component {
         let blob = new Blob([exportContent + str], {
             type: "text/plain;charset=utf-8"
         });
-        FileSaver.saveAs(blob, "收益明细列表.csv");
+        FileSaver.saveAs(blob, "支付明细列表.csv");
     }
     render() {
         const isteam = JSON.parse(sessionStorage.getItem('team'))
@@ -276,6 +276,13 @@ class Payment extends React.Component {
                     <Form.Item>
                         <Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} >查询</Button>
                         <Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+                        {isteam===true && <Button className="btn1" type="primary" onClick={async () => {
+                        await this.setState({
+                            isDownLoad: true
+                        })
+                        await this.getList()
+                        this.downloadCsv(this.state.exportData)
+                    }}><Icon type="download" /> 导出</Button>}
                     </Form.Item>
                 </Form>
                 <div className='table-wrapper' style={{ position: 'relative' }}>
@@ -297,13 +304,7 @@ class Payment extends React.Component {
                         size="middle" align="center"
                         columns={columns} dataSource={this.state.tableData.data} loading={this.state.loading}
                     />
-                    {isteam && <Button style={{ position: 'absolute', bottom: 10 }} className="btn1" type="primary" onClick={async () => {
-                        await this.setState({
-                            isDownLoad: true
-                        })
-                        await this.getList()
-                        this.downloadCsv(this.state.exportData)
-                    }}><Icon type="download" /> 导出</Button>}
+                    
 
                 </div>
             </div>

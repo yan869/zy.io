@@ -151,10 +151,10 @@ downloadCsv = (data) => {
     }
     str += '\n' +
       data[i].orderSn + ',' +
-      data[i].userInfo.name + ',' +
+      data[i].userInfo.name + ',' +"\t"+
       data[i].userInfo.phone + ',' +
-      data[i].title + ',' +
-      data[i].orderTime + ',' +
+      data[i].title + ',' +"\t"+
+      data[i].orderTime + ',' +"\t"+
       data[i].appointment + ',' +
       esettlementstatus + ',' +
       money
@@ -329,6 +329,13 @@ render() {
         <Form.Item>
           <Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
           <Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+          <Button className="btn1"  type="primary"  onClick={async () => {
+          await this.setState({
+            isDownLoad: true
+          })
+          await this.getOrderList()
+          this.downloadCsv(this.state.exportData)
+        }}><Icon type="download" /> 导出</Button>
         </Form.Item>
       </Form>
 
@@ -353,13 +360,7 @@ render() {
           dataSource={this.state.tableData.data}
           size="middle"
           align="center" />
-        <Button style={{ position: 'absolute', bottom: 10 }} className="btn1" type="primary" onClick={async () => {
-          await this.setState({
-            isDownLoad: true
-          })
-          await this.getOrderList()
-          this.downloadCsv(this.state.exportData)
-        }}><Icon type="download" /> 导出</Button>
+      
       </div>
       <Modal
         title='工程订单详情'

@@ -46,7 +46,7 @@ class Operator extends React.Component {
         page: 1,
         limit: 10
       },
-     columns : [
+      columns: [
         {
           title: '作业员编号',
           dataIndex: 'workersn',
@@ -67,7 +67,7 @@ class Operator extends React.Component {
             <Avatar shape="square" size={64} src={text} icon="user"></Avatar>
           ),
         },
-  
+
         {
           title: '昵称',
           align: "center",
@@ -137,8 +137,8 @@ class Operator extends React.Component {
           align: 'center',
           dataIndex: 'inviteNumber',
           key: 'inviteNumber',
-          render:(text)=>{
-            return <span>{text?text:0}</span>
+          render: (text) => {
+            return <span>{text ? text : 0}</span>
           }
         },
         {
@@ -158,22 +158,22 @@ class Operator extends React.Component {
         },
         {
           title: '角色',
-          dataIndex: 'teamleaderflag',
+          dataIndex: 'signflag',
           align: "center",
           width: 100,
-          key: 'teamleaderflag',
+          key: 'signflag',
           width: 150,
           render: (item, record) => {
-            if (item == 1) {
+            if (item === 1) {
               return <span>签约作业员 </span>
-            } else {
+            } else if (item === 0) {
               return <span>普通作业员 </span>
             }
-  
-  
+
+
           }
         },
-    
+
         {
           title: '完成订单数',
           dataIndex: 'worktimes',
@@ -223,15 +223,15 @@ class Operator extends React.Component {
               <Tag className="btn1" onClick={() => {
                 this.showDetail(true, row)
               }} size='small' color="#2db7f5">作业员详情</Tag>
-             {/*&&row.workstatus===1   */}
-              {(row.count >= 1&&row.workstatus===1)? <Tag className="btn1" onClick={() => {
+              {/*&&row.workstatus===1   */}
+              {(row.count >= 1 && row.workstatus === 1) ? <Tag className="btn1" onClick={() => {
                 this.betrayDetail(true, row)
-              }} size='small' color="#f50">违约详情</Tag>:""}
+              }} size='small' color="#f50">违约详情</Tag> : ""}
             </div>
           ),
         },
       ]
-  
+
     }
   }
   handleCancel = e => {
@@ -304,24 +304,24 @@ class Operator extends React.Component {
   }
   // 数据导入
   uploadMibfiles = file => {
-		this.fileList = file;
-	}
-	fileState = info => {
-		let that=this
-		if (info.file.status === 'uploading') {
-			this.setState({ loadingImg: true });
-			return;
-		  }
-		  if (info.file.status === 'done') {
-			let { response } = info.file;
-			if (response.errCode === 0) {
-			  message.success('上传成功！');
-			  that.getWorkerList()
-			} else {
-			  message.error(response.errMsg);
-			}
-		  }
-	}
+    this.fileList = file;
+  }
+  fileState = info => {
+    let that = this
+    if (info.file.status === 'uploading') {
+      this.setState({ loadingImg: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      let { response } = info.file;
+      if (response.errCode === 0) {
+        message.success('上传成功！');
+        that.getWorkerList()
+      } else {
+        message.error(response.errMsg);
+      }
+    }
+  }
   pageChange(page, pageSize) {
     let params = Object.assign({}, this.state.params, { page, limit: pageSize });
     this.setState({
@@ -375,11 +375,11 @@ class Operator extends React.Component {
         data[i].id + ',' +
         data[i].workersn + ',' +
         data[i].nickName + ',' +
-        data[i].alipayname + ',' +
+        data[i].alipayname + ',' + "\t" +
         data[i].phone + ',' +
-        data[i].cashtotal + ',' +
+        data[i].cashtotal + ',' + "\t" +
         data[i].createtime + ',' +
-        (data[i].teamleaderflag === 0 ? '普通作业员' : '签约作业员') + ',' +
+        (data[i].teamleaderflag === 0 ? '普通作业员' : '签约作业员') + ',' + "\t" +
         data[i].worktimes
     }
     //Excel打开后中文乱码添加如下字符串解决
@@ -391,7 +391,7 @@ class Operator extends React.Component {
   };
   render() {
     const { getFieldDecorator } = this.props.form;
-    const columns =this.state.columns.map((col, index) => ({
+    const columns = this.state.columns.map((col, index) => ({
       ...col,
     }));
     const props = {
@@ -428,11 +428,23 @@ class Operator extends React.Component {
           <Form.Item>
             <Button icon="search" type="primary" htmlType="submit" onClick={this.handleSubmit} loading={this.state.loadingSub}>查询</Button>
             <Button style={{ margin: "0 13px" }} type="default" onClick={this.cancelContent} >重置</Button>
+            <Button className="btn1"
+              type="primary"
+              onClick={async () => {
+                await this.setState({
+                  isDownLoad: true
+                })
+                await this.getWorkerList()
+                console.log(this.state.exportData);
+
+                this.downloadCsv(this.state.exportData)
+              }}
+            ><Icon type="download" /> 导出</Button>
           </Form.Item>
         </Form>
-        <div style={{position:'relative'}} className='table-wrapper' id='components-table-resizable-column'>
+        <div style={{ position: 'relative' }} className='table-wrapper' id='components-table-resizable-column'>
           <Table
-         
+
             pagination={
               {
                 showTotal: () => `共${this.state.tableData.total}条`,
@@ -449,17 +461,7 @@ class Operator extends React.Component {
             rowKey={(record, index) => index}
             columns={columns} dataSource={this.state.tableData.data} size="middle" align="center"
             loading={this.state.loading} />
-            <Button style={{position:'absolute',bottom:10}} className="btn1"
-              onClick={async () => {
-                await this.setState({
-                  isDownLoad: true
-                })
-                await this.getWorkerList()
-                console.log(this.state.exportData);
 
-                this.downloadCsv(this.state.exportData)
-              }}
-            ><Icon type="download" /> 导出</Button>
         </div>
         <Modal
           title="作业员详情"
@@ -507,7 +509,8 @@ class Operator extends React.Component {
             </Col>
             <Col className='col-item' span={12}>
               <span className='title'>角色:</span>
-              <span>{this.state.detailData.signflag == 0 ? '普通作业员' : '签约作业员'}</span>
+
+              <span>{this.state.detailData.signflag === 0 ? '普通作业员' : '签约作业员'}</span>
             </Col>
 
 
@@ -575,9 +578,9 @@ class Operator extends React.Component {
                   </Col>
                   <Col className='col-item' span={12}>
                     <span className='title'>违约金额:</span>
-                    <span>￥{item.money?item.money:"0.00"}</span>
+                    <span>￥{item.money ? item.money : "0.00"}</span>
                   </Col>
-             
+
                   <Col className='col-item' span={12}>
                     <span className='title'>订单标题:</span>
                     <span>{item.createTime}</span>
@@ -592,7 +595,7 @@ class Operator extends React.Component {
                   </Col>
                   <Col className='col-item' span={12}>
                     <span className='title'>违约扣除金额:</span>
-                    <span>￥{item.lastUpdateTime?item.lastUpdateTime:"0.00"}</span>
+                    <span>￥{item.lastUpdateTime ? item.lastUpdateTime : "0.00"}</span>
                   </Col>
                   <Col className='col-item' span={12}>
                     <span className='title'>删除标志:</span>

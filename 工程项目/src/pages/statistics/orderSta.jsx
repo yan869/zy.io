@@ -174,7 +174,13 @@ class OrderSta extends React.Component {
 			series: [{
 				name: "订单数量",
             	type: "line",
-            	stack: "总量",
+				stack: "总量",
+				// label:{
+				// 	normal:{
+				// 		show:true,
+				// 		position:"top"
+				// 	}
+				// },
 				data: this.state.lineData
 			}]
 		};
